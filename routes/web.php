@@ -11,7 +11,7 @@ Route::get('/user', function () {
     return view('user.index');
 });
 
-Route::get('/admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index']);
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -24,3 +24,11 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+// ADMIN ROUTES
+Route::prefix('admin')->middleware(['auth'])->group(function(){
+    Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index']);
+    Route::get('/category', [App\Http\Controllers\Admin\CategoryController::class, 'index']);
+});
+
