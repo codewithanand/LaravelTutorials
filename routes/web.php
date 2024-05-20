@@ -29,6 +29,9 @@ require __DIR__.'/auth.php';
 // ADMIN ROUTES
 Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index']);
-    Route::get('/category', [App\Http\Controllers\Admin\CategoryController::class, 'index']);
+
+    // Route::get('/category', [App\Http\Controllers\Admin\CategoryController::class, 'index']);
+    // Route::get('/category/create', [App\Http\Controllers\Admin\CategoryController::class, 'create']);
+    Route::resource('categories', App\Http\Controllers\Admin\CategoryController::class);
 });
 
