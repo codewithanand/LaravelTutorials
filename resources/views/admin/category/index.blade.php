@@ -9,16 +9,16 @@
     <div class="row">
         <div class="col-md-12">
 
-            @if (session("success"))
+            @if (session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>Success!</strong> {{session('success')}}
+                    <strong>Success!</strong> {{ session('success') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
 
-            @if (session("error"))
+            @if (session('error'))
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <strong>Success!</strong> {{session('error')}}
+                    <strong>Success!</strong> {{ session('error') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
@@ -39,13 +39,11 @@
                                 <tr>
                                     <td>{{ $category->id }}</td>
                                     <td>{{ $category->name }}</td>
-                                    <td><img src="{{ asset("uploads/categories/".$category->image) }}" alt="" height="40"></td>
+                                    <td><img src="{{ asset('uploads/categories/' . $category->image) }}" alt=""
+                                            height="40"></td>
                                     <td>
-                                        <a class="btn btn-danger" href="#" onclick="document.getElementById('deleteForm').submit()"><i class="fas fa-trash"></i></a>
-                                        <form action="{{route('categories.destroy', $category)}}" method="post" id="deleteForm">
-                                            @csrf
-                                            @method("DELETE")
-                                        </form>
+                                        <a class="btn btn-success" href="{{ route('categories.edit', $category->id) }}"><i class="fas fa-edit"></i></a>
+                                        <a class="btn btn-danger" href="{{ route('categories.delete', $category->id) }}"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -56,3 +54,5 @@
         </div>
     </div>
 @endsection
+
+

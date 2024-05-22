@@ -33,5 +33,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     // Route::get('/category', [App\Http\Controllers\Admin\CategoryController::class, 'index']);
     // Route::get('/category/create', [App\Http\Controllers\Admin\CategoryController::class, 'create']);
     Route::resource('categories', App\Http\Controllers\Admin\CategoryController::class);
+    Route::get('/categories/{id}/delete', [App\Http\Controllers\Admin\CategoryController::class, 'delete'])->name("categories.delete");
+
 });
 

@@ -12,7 +12,7 @@
                     <a class="nav-link active" aria-current="page" href="{{url('/')}}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url('/admin/category')}}">Category</a>
+                    <a class="nav-link" href="{{url('/admin/categories')}}">Category</a>
                 </li>
             </ul>
             <ul class="navbar-nav">

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 use App\Models\Category;
 
@@ -70,7 +71,9 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = Category::find($id);
+        $data = compact("category");
+        return view ("admin.category.edit")->with($data);
     }
 
     /**
@@ -78,7 +81,40 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:30|unique:categories',
+            'slug' => 'required',
+        ]);
+
+        try{
+            $category = Category::find($id);
+            if($category){
+                $category->name = $validated['name'];
+                $category->slug = Str::slug($validated['slug']);
+    
+                if($request->hasFile("image")){
+                    $destination = "uploads/categories/".$category->image;
+                    if(File::exists($destination)){
+                        File::delete($destination);
+                    }
+
+                    $file = $request->file("image");
+                    $filename = time().".".$file->getClientOriginalExtension();
+                    $file->move("uploads/categories/", $filename);
+                    $category->image = $filename;
+                }
+    
+                $category->update();
+    
+                return redirect('admin/categories')->with("success", "Category updated");
+            }
+            else{
+                return redirect('admin/categories')->with("error", "Category cannot be found");
+            }
+        }
+        catch(Exception $error){
+            return redirect('admin/categories')->with("error", "Category cannot be updated");
+        }
     }
 
     /**
@@ -86,6 +122,29 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        echo "Destroy called";
+        echo "Destroy called: Item deleted : ".$id;
+    }
+
+    public function delete(string $id)
+    {
+        try{
+            $category = Category::find($id);
+            if($category){
+                $destination = "uploads/categories/".$category->image;
+                if(File::exists($destination)){
+                    File::delete($destination);
+                }
+    
+                $category->delete();
+    
+                return redirect('admin/categories')->with("success", "Category deleted");
+            }
+            else{
+                return redirect('admin/categories')->with("error", "Category cannot be found");
+            }
+        }
+        catch(Exception $error){
+            return redirect('admin/categories')->with("error", "Category cannot be deleted");
+        }
     }
 }
