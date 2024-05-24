@@ -14,6 +14,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('/admin/categories')}}">Category</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url('/admin/tags')}}">Tag</a>
+                </li>
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">

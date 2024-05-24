@@ -35,5 +35,12 @@ Route::prefix('admin')->middleware(['auth'])->group(function(){
     Route::resource('categories', App\Http\Controllers\Admin\CategoryController::class);
     Route::get('/categories/{id}/delete', [App\Http\Controllers\Admin\CategoryController::class, 'delete'])->name("categories.delete");
 
+
+    Route::get('/tags', [App\Http\Controllers\Admin\TagController::class, 'index'])->name("admin.tags");
+    Route::get('/tags/create', [App\Http\Controllers\Admin\TagController::class, 'create'])->name("admin.tags.create");
+    Route::post('/tags/store', [App\Http\Controllers\Admin\TagController::class, 'store'])->name("admin.tags.store");
+    Route::get('/tags/edit/{id}', [App\Http\Controllers\Admin\TagController::class, 'edit'])->name("admin.tags.edit");
+    Route::put('/tags/update/{id}', [App\Http\Controllers\Admin\TagController::class, 'update'])->name("admin.tags.update");
+    Route::get('/tags/delete/{id}', [App\Http\Controllers\Admin\TagController::class, 'destroy'])->name("admin.tags.destroy");
 });
 

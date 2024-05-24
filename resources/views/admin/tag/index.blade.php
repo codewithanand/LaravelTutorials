@@ -5,11 +5,11 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-danger">
-                    <h1 class="modal-title text-white fs-5" id="exampleModalLabel">Delete Category</h1>
+                    <h1 class="modal-title text-white fs-5" id="exampleModalLabel">Delete Tag</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure want to delete category?</p>
+                    <p>Are you sure want to delete this tag?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -22,8 +22,8 @@
 
 
     <div class="d-flex align-items-center justify-content-between mb-4">
-        <h1>Category</h1>
-        <a href="{{ url('/admin/categories/create') }}" class="btn btn-primary"><i class="fas fa-edit"></i> Add new</a>
+        <h1>Tags</h1>
+        <a href="{{ url('/admin/tags/create') }}" class="btn btn-primary"><i class="fas fa-edit"></i> Add new</a>
     </div>
 
     <div class="row">
@@ -49,21 +49,20 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Category Name</th>
-                                <th>Image</th>
+                                <th>Tag Name</th>
+                                <th>Slug</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($categories as $category)
+                            @foreach ($tags as $tag)
                                 <tr>
-                                    <td>{{ $category->id }}</td>
-                                    <td>{{ $category->name }}</td>
-                                    <td><img src="{{ asset('uploads/categories/' . $category->image) }}" alt=""
-                                            height="40"></td>
+                                    <td>{{ $tag->id }}</td>
+                                    <td>{{ $tag->name }}</td>
+                                    <td>{{$tag->slug}}</td>
                                     <td>
-                                        <a class="btn btn-success" href="{{ route('categories.edit', $category->id) }}"><i class="fas fa-edit"></i></a>
-                                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" data-category-id="{{$category->id}}"><i class="fas fa-trash"></i></button>
+                                        <a class="btn btn-success" href="{{ route('admin.tags.edit', $tag->id) }}"><i class="fas fa-edit"></i></a>
+                                        <a class="btn btn-danger" onclick="return confirm('Are you sure want to delete this tag?')" href="{{ route('admin.tags.destroy', $tag->id) }}"><i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -82,3 +81,4 @@
         })
     </script>
 @endsection
+
